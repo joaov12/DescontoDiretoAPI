@@ -15,6 +15,17 @@ public class Cliente {
     private String senha;
     private String telefone;
 
+    public Cliente() {
+    }
+
+    public Cliente(Long id, String email, String nome, String senha, String telefone) {
+        this.id = id;
+        this.email = email;
+        this.nome = nome;
+        this.senha = senha;
+        this.telefone = telefone;
+    }
+
     public String getEmail() {
         return email;
     }
