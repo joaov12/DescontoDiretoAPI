@@ -5,31 +5,32 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "produtos")
-public class Produto {
+@Table(name = "comercios")
+public class Comercio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
-    private String medida;
-    private String categoria; // Mudar categoria ara sendo um ENUM
-    private String descricao;
-    // private Long id_comercio; necessário?
+    private String endereco;
+    private String telefone;
+    private String categoria;
+    private String email;
 
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "comercio")
     private List<Oferta> ofertas;
 
-    public Produto() {
+    public Comercio() {
     }
 
-    public Produto(String categoria, String descricao, Long id, String medida, String nome) {
+    public Comercio(String categoria, String telefone, String nome, Long id, String endereco, String email) {
         this.categoria = categoria;
-        this.descricao = descricao;
-        this.id = id;
-        this.medida = medida;
+        this.telefone = telefone;
         this.nome = nome;
+        this.id = id;
+        this.endereco = endereco;
+        this.email = email;
     }
 
     public String getCategoria() {
@@ -40,12 +41,20 @@ public class Produto {
         this.categoria = categoria;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public Long getId() {
@@ -56,12 +65,12 @@ public class Produto {
         this.id = id;
     }
 
-    public String getMedida() {
-        return medida;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setMedida(String medida) {
-        this.medida = medida;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getNome() {

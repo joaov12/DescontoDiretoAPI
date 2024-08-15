@@ -2,6 +2,8 @@ package com.dd.descontodiretoapi.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "clientes")
 public class Cliente {
@@ -14,6 +16,8 @@ public class Cliente {
     private String email;
     private String senha;
     private String telefone;
+    @ManyToMany
+    private List<Oferta> ofertasPreferidas;
 
     public Cliente() {
     }
@@ -64,5 +68,13 @@ public class Cliente {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public List<Oferta> getOfertasPreferidas() {
+        return ofertasPreferidas;
+    }
+
+    public void setOfertasPreferidas(List<Oferta> ofertasPreferidas) {
+        this.ofertasPreferidas = ofertasPreferidas;
     }
 }
