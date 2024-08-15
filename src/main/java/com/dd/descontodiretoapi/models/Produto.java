@@ -2,6 +2,8 @@ package com.dd.descontodiretoapi.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "produtos")
 public class Produto {
@@ -16,6 +18,8 @@ public class Produto {
     private String descricao;
     // private Long id_comercio; necessário?
 
+    @OneToMany(mappedBy = "produto")
+    private List<Oferta> ofertas;
 
     public Produto() {
     }
@@ -66,5 +70,13 @@ public class Produto {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Oferta> getOfertas() {
+        return ofertas;
+    }
+
+    public void setOfertas(List<Oferta> ofertas) {
+        this.ofertas = ofertas;
     }
 }
