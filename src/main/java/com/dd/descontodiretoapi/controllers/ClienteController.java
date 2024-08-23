@@ -152,4 +152,10 @@ public class ClienteController {
         clienteService.deleteCliente(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
     }
+
+    @PostMapping("/{clienteId}/favoritos/{ofertaId}")
+    public Cliente addOfertaToFavoritos(@PathVariable Long clienteId, @PathVariable Long ofertaId) {
+        return clienteService.addOfertaToFavoritos(clienteId, ofertaId);
+    }
+
 }

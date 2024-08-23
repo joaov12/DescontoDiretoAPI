@@ -1,5 +1,6 @@
 package com.dd.descontodiretoapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class Produto {
     private String descricao;
     // private Long id_comercio; necessário?
 
+    @JsonIgnore
     @OneToMany(mappedBy = "produto")
     private List<Oferta> ofertas;
 

@@ -1,5 +1,6 @@
 package com.dd.descontodiretoapi.controllers;
 
+import com.dd.descontodiretoapi.dto.AddOfertaDTO;
 import com.dd.descontodiretoapi.models.Oferta;
 import com.dd.descontodiretoapi.services.OfertaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -90,9 +91,10 @@ public class OfertaController {
                     )
             }
     )
-    @PostMapping("/add")
-    public ResponseEntity<Oferta> addOferta(@RequestBody Oferta oferta) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ofertaService.addOferta(oferta));
+    @PostMapping
+    public ResponseEntity<Oferta> addOferta(@RequestBody AddOfertaDTO addOfertaDTO) {
+        Oferta novaOferta = ofertaService.addOferta(addOfertaDTO);
+        return new ResponseEntity<>(novaOferta, HttpStatus.CREATED);
     }
 
     @Operation(
