@@ -1,5 +1,6 @@
 package com.dd.descontodiretoapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -19,10 +20,12 @@ public class Oferta {
     @NotNull
     private Produto produto;
 
+    @JsonIgnore
     @ManyToOne
     @NotNull
     private Comercio comercio;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "ofertasPreferidas")
     private List<Cliente> clientes;
 

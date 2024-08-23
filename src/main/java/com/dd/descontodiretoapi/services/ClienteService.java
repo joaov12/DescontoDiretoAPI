@@ -1,7 +1,9 @@
 package com.dd.descontodiretoapi.services;
 
 import com.dd.descontodiretoapi.models.Cliente;
+import com.dd.descontodiretoapi.models.Oferta;
 import com.dd.descontodiretoapi.repositories.ClienteRepository;
+import com.dd.descontodiretoapi.repositories.OfertaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private OfertaRepository ofertaRepository;
 
     public List<Cliente> findAll() {
         List<Cliente> clientes = clienteRepository.findAll();
@@ -48,6 +53,19 @@ public class ClienteService {
 
     public void deleteCliente(Long id) {
         clienteRepository.deleteById(id);
+    }
+
+    public Cliente addOfertaToFavoritos(Long clienteId, Long ofertaId) {
+        Cliente cliente = findById(clienteId);
+        Oferta oferta = ofertaRepository.findById(ofertaId)
+                .orElseThrow(() -> new RuntimeException("Oferta não encontrada"));
+
+        if (!cliente.getOfertasPreferidas().contains(oferta)) {
+            cliente.getOfertasPreferidas().add(oferta);
+            return clienteRepository.save(cliente);
+        } else {
+            throw new RuntimeException("A oferta já está nos favoritos");
+        }
     }
 
 }
