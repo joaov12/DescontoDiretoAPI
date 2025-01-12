@@ -17,7 +17,7 @@ public class Produto {
     private String medida;
     private String categoria; // Mudar categoria ara sendo um ENUM
     private String descricao;
-    // private Long id_comercio; necessário?
+    private String fotoUrl;
 
     @JsonIgnore
     @OneToMany(mappedBy = "produto")
@@ -76,6 +76,13 @@ public class Produto {
 
     public List<Oferta> getOfertas() {
         return ofertas;
+    }
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
     }
 
     public void setOfertas(List<Oferta> ofertas) {

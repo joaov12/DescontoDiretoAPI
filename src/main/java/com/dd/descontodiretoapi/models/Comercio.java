@@ -18,6 +18,12 @@ public class Comercio {
     private String categoria;
     private String email;
 
+    @Column(name = "foto_url")
+    private String fotoUrl;
+
+
+
+
     @OneToMany(mappedBy = "comercio")
     private List<Oferta> ofertas;
 
@@ -32,6 +38,8 @@ public class Comercio {
         this.endereco = endereco;
         this.email = email;
     }
+
+
 
     public String getCategoria() {
         return categoria;
@@ -87,5 +95,13 @@ public class Comercio {
 
     public void setOfertas(List<Oferta> ofertas) {
         this.ofertas = ofertas;
+    }
+
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
     }
 }
