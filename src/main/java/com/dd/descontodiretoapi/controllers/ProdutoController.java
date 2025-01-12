@@ -1,7 +1,9 @@
 package com.dd.descontodiretoapi.controllers;
 
 import com.dd.descontodiretoapi.models.Produto;
+import com.dd.descontodiretoapi.repositories.ProdutoRepository;
 import com.dd.descontodiretoapi.services.ProdutoService;
+import com.dd.descontodiretoapi.services.aws.S3Service;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,8 +11,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,6 +24,12 @@ import java.util.List;
 public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
+
+    @Autowired
+    private S3Service s3Service;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @Operation(
             summary = "Obter todos os Produtos",
@@ -150,5 +160,29 @@ public class ProdutoController {
     public ResponseEntity<?> deleteProduto(@PathVariable("id") Long id) {
         produtoService.deleteProduto(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
+    }
+
+    @PostMapping(value = "/upload-foto-produto/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> uploadFoto(@PathVariable Long id, @RequestPart(value = "photo") MultipartFile file) {
+        try {
+            Produto produto = produtoRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
+
+            String fileName = "produto-" + id + "-" + file.getOriginalFilename();
+            String fotoUrl = s3Service.uploadFotoProduto(
+                    fileName,
+                    file.getInputStream(),
+                    file.getSize(),
+                    file.getContentType()
+            );
+
+            produto.setFotoUrl(fotoUrl);
+            produtoRepository.save(produto);
+
+            return ResponseEntity.ok(fotoUrl);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao fazer upload da foto: " + e.getMessage());
+        }
     }
 }
