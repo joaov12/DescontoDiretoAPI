@@ -68,4 +68,17 @@ public class ClienteService {
         }
     }
 
+    public Cliente removeOfertaFromFavoritos(Long clienteId, Long ofertaId) {
+        Cliente cliente = findById(clienteId);
+        Oferta oferta = ofertaRepository.findById(ofertaId)
+                .orElseThrow(() -> new RuntimeException("Oferta não encontrada"));
+
+        if (cliente.getOfertasPreferidas().contains(oferta)) {
+            cliente.getOfertasPreferidas().remove(oferta);
+            return clienteRepository.save(cliente);
+        } else {
+            throw new RuntimeException("A oferta não está nos favoritos");
+        }
+    }
+
 }

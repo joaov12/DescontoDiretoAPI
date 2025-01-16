@@ -13,6 +13,8 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+
+
     public List<Produto> findAll() {
         List<Produto> produtos = produtoRepository.findAll();
         if (produtos.isEmpty()) {
@@ -32,6 +34,8 @@ public class ProdutoService {
         } catch (Exception e) {
             throw new RuntimeException("Erro ao adicionar produto", e);
         }
+
+
     }
 
     public Produto updateProduto(Produto produto) {

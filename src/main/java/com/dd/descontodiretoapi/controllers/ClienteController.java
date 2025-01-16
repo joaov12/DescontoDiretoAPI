@@ -158,4 +158,30 @@ public class ClienteController {
         return clienteService.addOfertaToFavoritos(clienteId, ofertaId);
     }
 
+    @Operation(
+            summary = "Remover oferta dos favoritos",
+            description = "Remove uma oferta dos favoritos do cliente",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Oferta removida dos favoritos com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Cliente ou oferta não encontrados",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Erro interno no servidor",
+                            content = @Content(mediaType = "application/json")
+                    )
+            }
+    )
+    @DeleteMapping("/{clienteId}/favoritos/{ofertaId}")
+    public ResponseEntity<Cliente> removeOfertaFromFavoritos(@PathVariable Long clienteId, @PathVariable Long ofertaId) {
+        return ResponseEntity.status(HttpStatus.OK).body(clienteService.removeOfertaFromFavoritos(clienteId, ofertaId));
+    }
+
 }
