@@ -1,7 +1,6 @@
 package com.dd.descontodiretoapi.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.util.Date;
@@ -9,6 +8,8 @@ import java.util.Date;
 @Entity
 @Table(name = "panfletos")
 public class Panfleto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fotoUrl;
     private Date dataExpiracao;

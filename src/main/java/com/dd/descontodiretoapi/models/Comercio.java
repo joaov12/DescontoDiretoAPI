@@ -17,12 +17,10 @@ public class Comercio {
     private String telefone;
     private String categoria;
     private String email;
+    private String senha;
 
     @Column(name = "foto_url")
     private String fotoUrl;
-
-
-
 
     @OneToMany(mappedBy = "comercio")
     private List<Oferta> ofertas;
@@ -30,13 +28,14 @@ public class Comercio {
     public Comercio() {
     }
 
-    public Comercio(String categoria, String telefone, String nome, Long id, String endereco, String email) {
+    public Comercio(String categoria, String telefone, String nome, Long id, String endereco, String email, String senha) {
         this.categoria = categoria;
         this.telefone = telefone;
         this.nome = nome;
         this.id = id;
         this.endereco = endereco;
         this.email = email;
+        this.senha = senha;
     }
 
 
@@ -95,6 +94,13 @@ public class Comercio {
 
     public void setOfertas(List<Oferta> ofertas) {
         this.ofertas = ofertas;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getFotoUrl() {
