@@ -51,4 +51,21 @@ public class S3Service {
             throw new RuntimeException("Erro ao fazer upload para o S3: " + e.getMessage(), e);
         }
     }
+
+    public String uploadFotoPanfleto(String fileName, InputStream fileStream, long fileSize, String contentType) {
+        try {
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentLength(fileSize);
+            metadata.setContentType(contentType);
+
+
+            String objectKey = "panfletos/" + fileName;
+
+            s3Client.putObject(bucketName, objectKey, fileStream, metadata);
+
+            return s3Client.getUrl(bucketName, objectKey).toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao fazer upload para o S3: " + e.getMessage(), e);
+        }
+    }
 }
