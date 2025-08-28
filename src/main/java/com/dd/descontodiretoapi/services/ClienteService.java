@@ -64,7 +64,7 @@ public class ClienteService {
             cliente.getOfertasPreferidas().add(oferta);
             return clienteRepository.save(cliente);
         } else {
-            throw new RuntimeException("A oferta já está nos favoritos");
+            throw new RuntimeException("A oferta já está nos favoritos!");
         }
     }
 
