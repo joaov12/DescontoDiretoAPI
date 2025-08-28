@@ -11,8 +11,9 @@ import java.util.List;
 @Table(name = "ofertas")
 public class Oferta {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String nome;
     private Float preco;
     private Date validade;
 
@@ -32,12 +33,13 @@ public class Oferta {
     public Oferta() {
     }
 
-    public Oferta(Comercio comercio, Long id, Float preco, Produto produto, Date validade) {
+    public Oferta(Comercio comercio, Long id, Float preco, String nome, Produto produto, Date validade) {
         this.comercio = comercio;
         this.id = id;
         this.preco = preco;
         this.produto = produto;
         this.validade = validade;
+        this.nome = nome;
     }
 
     public @NotNull Comercio getComercio() {
@@ -82,6 +84,13 @@ public class Oferta {
 
     public List<Cliente> getClientes() {
         return clientes;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public void setClientes(List<Cliente> clientes) {
