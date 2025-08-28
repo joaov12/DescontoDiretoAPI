@@ -2,6 +2,7 @@ package com.dd.descontodiretoapi.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,10 @@ public class Comercio {
     private String categoria;
     private String email;
     private String senha;
+    private LocalTime horarioAbertura;
+    private LocalTime horarioFechamento;
+    private Boolean aberto;
+
 
     @Column(name = "foto_url")
     private String fotoUrl;
@@ -28,7 +33,7 @@ public class Comercio {
     public Comercio() {
     }
 
-    public Comercio(String categoria, String telefone, String nome, Long id, String endereco, String email, String senha) {
+    public Comercio(String categoria, String telefone, String nome, Long id, String endereco, String email, String senha, LocalTime horarioAbertura, LocalTime horarioFechamento, Boolean aberto) {
         this.categoria = categoria;
         this.telefone = telefone;
         this.nome = nome;
@@ -36,6 +41,9 @@ public class Comercio {
         this.endereco = endereco;
         this.email = email;
         this.senha = senha;
+        this.horarioAbertura = horarioAbertura;
+        this.horarioFechamento = horarioFechamento;
+        this.aberto = aberto;
     }
 
 
@@ -109,5 +117,28 @@ public class Comercio {
 
     public void setFotoUrl(String fotoUrl) {
         this.fotoUrl = fotoUrl;
+    }
+
+    public LocalTime getHorarioAbertura() {
+        return horarioAbertura;
+    }
+    public void setHorarioAbertura(LocalTime horarioAbertura) {
+        this.horarioAbertura = horarioAbertura;
+    }
+    public LocalTime getHorarioFechamento() {
+        return horarioFechamento;
+    }
+    public void setHorarioFechamento(LocalTime horarioFechamento) {
+        this.horarioFechamento = horarioFechamento;
+    }
+    public Boolean getAberto() {
+        if (horarioAbertura != null && horarioFechamento != null) {
+            LocalTime now = LocalTime.now();
+            return now.isAfter(horarioAbertura) && now.isBefore(horarioFechamento);
+        }
+        return aberto;
+    }
+    public void setAberto(Boolean aberto) {
+        this.aberto = aberto;
     }
 }
