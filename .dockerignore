@@ -1,0 +1,30 @@
+# Maven & IDE
+/target/
+/.mvn/
+/.idea/
+/.project
+/.classpath
+/.settings/
+*.iml
+
+# VCS
+/.git
+/.gitignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+/node_modules/
+
+# Logs e envs locais
+*.log
+*.local
+/env/
+/.env
+
+# Mídia
+*.png
+*.jpg
+*.jpeg
+*.gif
