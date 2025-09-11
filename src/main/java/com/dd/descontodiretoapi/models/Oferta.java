@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -13,14 +14,13 @@ public class Oferta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nome;
     private Float preco;
     private Date validade;
+    private LocalDateTime dataPostagem;
 
     @ManyToOne
     @NotNull
     private Produto produto;
-
     @JsonIgnore
     @ManyToOne
     @NotNull
@@ -33,13 +33,13 @@ public class Oferta {
     public Oferta() {
     }
 
-    public Oferta(Comercio comercio, Long id, Float preco, String nome, Produto produto, Date validade) {
+    public Oferta(Comercio comercio, Long id, Float preco, Produto produto, Date validade) {
         this.comercio = comercio;
         this.id = id;
         this.preco = preco;
         this.produto = produto;
         this.validade = validade;
-        this.nome = nome;
+        this.dataPostagem = LocalDateTime.now();
     }
 
     public @NotNull Comercio getComercio() {
@@ -86,14 +86,25 @@ public class Oferta {
         return clientes;
     }
 
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
+    }
+
+    // Getter que conta quantos clientes favoritaram esta oferta
+    public Integer getLikes() {
+        return clientes != null ? clientes.size() : 0;
+    }
+
+    public LocalDateTime getDataPostagem() {
+        return dataPostagem;
+    }
+
+    public void setDataPostagem(LocalDateTime dataPostagem) {
+        this.dataPostagem = dataPostagem;
+    }
+
+    // Getter customizado para retornar apenas o ID do comércio
+    public Long getComercioId() {
+        return comercio != null ? comercio.getId() : null;
     }
 }
