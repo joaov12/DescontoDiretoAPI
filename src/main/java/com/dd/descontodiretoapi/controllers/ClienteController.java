@@ -153,9 +153,30 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
     }
 
+    @Operation(
+            summary = "Adicionar oferta aos favoritos",
+            description = "Adiciona uma oferta aos favoritos do cliente (dar like)",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Oferta adicionada aos favoritos com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Cliente ou oferta não encontrados",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Erro interno no servidor",
+                            content = @Content(mediaType = "application/json")
+                    )
+            }
+    )
     @PostMapping("/{clienteId}/favoritos/{ofertaId}")
-    public Cliente addOfertaToFavoritos(@PathVariable Long clienteId, @PathVariable Long ofertaId) {
-        return clienteService.addOfertaToFavoritos(clienteId, ofertaId);
+    public ResponseEntity<Cliente> addOfertaToFavoritos(@PathVariable Long clienteId, @PathVariable Long ofertaId) {
+        return ResponseEntity.status(HttpStatus.OK).body(clienteService.addOfertaToFavoritos(clienteId, ofertaId));
     }
 
     @Operation(
