@@ -1,6 +1,8 @@
 package com.dd.descontodiretoapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.Instant;
 import java.util.Date;
@@ -13,6 +15,13 @@ public class Panfleto {
     private Long id;
     private String fotoUrl;
     private Date dataExpiracao;
+
+
+    @JsonIgnore
+    @ManyToOne
+    @NotNull
+    private Comercio comercio;
+
 
     public Panfleto() {
     }
@@ -45,5 +54,17 @@ public class Panfleto {
 
     public void setDataExpiracao(Date dataExpiracao) {
         this.dataExpiracao = dataExpiracao;
+    }
+
+    public Long getComercioId() {
+        return comercio != null ? comercio.getId() : null;
+    }
+
+    public Comercio getComercio() {
+        return comercio;
+    }
+
+    public void setComercio(Comercio comercio) {
+        this.comercio = comercio;
     }
 }

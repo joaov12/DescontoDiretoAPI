@@ -1,5 +1,6 @@
 package com.dd.descontodiretoapi.controllers;
 
+import com.dd.descontodiretoapi.dto.AddPanfletoDTO;
 import com.dd.descontodiretoapi.models.Comercio;
 import com.dd.descontodiretoapi.models.Panfleto;
 import com.dd.descontodiretoapi.models.Produto;
@@ -40,8 +41,9 @@ public class PanfletoController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Panfleto> addPanfleto(@RequestBody Panfleto panfleto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(panfletoService.addPanfleto(panfleto));
+    public ResponseEntity<Panfleto> addPanfleto(@RequestBody AddPanfletoDTO panfletoDTO) {
+        Panfleto novoPanfleto = panfletoService.addPanfleto(panfletoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoPanfleto);
     }
 
     @PutMapping("/edit")
