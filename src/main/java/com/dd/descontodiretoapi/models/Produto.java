@@ -15,8 +15,8 @@ public class Produto {
 
     private String nome;
     private String medida;
+    private String unidadeMedida;
     private String categoria; // Mudar categoria ara sendo um ENUM
-    private String descricao;
     private String fotoUrl;
 
     @JsonIgnore
@@ -26,11 +26,11 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(String categoria, String descricao, Long id, String medida, String nome) {
+    public Produto(String categoria, Long id, String medida, String unidadeMedida, String nome) {
         this.categoria = categoria;
-        this.descricao = descricao;
         this.id = id;
         this.medida = medida;
+        this.unidadeMedida = unidadeMedida;
         this.nome = nome;
     }
 
@@ -42,12 +42,12 @@ public class Produto {
         this.categoria = categoria;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getUnidadeMedida() {
+        return unidadeMedida;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setUnidadeMedida(String unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
     }
 
     public Long getId() {

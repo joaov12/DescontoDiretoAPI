@@ -154,4 +154,47 @@ public class OfertaController {
         ofertaService.deleteOferta(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("");
     }
+
+    @Operation(
+            summary = "Obter top ofertas por likes",
+            description = "Retorna as ofertas com mais likes ordenadas por relevância",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Lista de top ofertas recuperada com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Oferta.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Erro interno no servidor",
+                            content = @Content(mediaType = "application/json")
+                    )
+            }
+    )
+    @GetMapping("/top")
+    public ResponseEntity<List<Oferta>> getTopOfertas() {
+        return ResponseEntity.status(HttpStatus.OK).body(ofertaService.findTopOfertas());
+    }
+
+    @Operation(
+            summary = "Obter ofertas recentes",
+            description = "Retorna as ofertas mais recentes ordenadas por data de postagem",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Lista de ofertas recentes recuperada com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Oferta.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Erro interno no servidor",
+                            content = @Content(mediaType = "application/json")
+                    )
+            }
+    )
+    @GetMapping("/recentes")
+    public ResponseEntity<List<Oferta>> getOfertasRecentes() {
+        return ResponseEntity.status(HttpStatus.OK).body(ofertaService.findOfertasRecentes());
+    }
+
 }

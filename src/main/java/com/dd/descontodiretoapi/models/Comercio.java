@@ -16,6 +16,11 @@ public class Comercio {
     private String nome;
     private String endereco;
     private String telefone;
+    private String telefoneCelular;
+    private String instagram;
+    private String bairro;
+    private String cep;
+    private Boolean fazEntrega;
     private String categoria;
     private String email;
     private String senha;
@@ -29,6 +34,10 @@ public class Comercio {
 
     @OneToMany(mappedBy = "comercio")
     private List<Oferta> ofertas;
+
+    @OneToMany(mappedBy = "comercio")
+    private List<Panfleto> panfletos;
+
 
     public Comercio() {
     }
@@ -140,5 +149,53 @@ public class Comercio {
     }
     public void setAberto(Boolean aberto) {
         this.aberto = aberto;
+    }
+
+    public String getTelefoneCelular() {
+        return telefoneCelular;
+    }
+
+    public void setTelefoneCelular(String telefoneCelular) {
+        this.telefoneCelular = telefoneCelular;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public Boolean getFazEntrega() {
+        return fazEntrega;
+    }
+
+    public void setFazEntrega(Boolean fazEntrega) {
+        this.fazEntrega = fazEntrega;
+    }
+
+    public List<Panfleto> getPanfletos() {
+        return panfletos;
+    }
+
+    public void setPanfletos(List<Panfleto> panfletos) {
+        this.panfletos = panfletos;
     }
 }
