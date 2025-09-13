@@ -10,6 +10,7 @@ import com.dd.descontodiretoapi.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -50,6 +51,7 @@ public class OfertaService {
         oferta.setProduto(produto);
         oferta.setPreco(ofertaDTO.getPreco());
         oferta.setValidade(ofertaDTO.getValidade());
+        oferta.setDataPostagem(LocalDateTime.now());
 
         try {
             return ofertaRepository.save(oferta);
@@ -73,5 +75,14 @@ public class OfertaService {
     public void deleteOferta(Long id) {
         ofertaRepository.deleteById(id);
     }
+
+    public List<Oferta> findTopOfertas() {
+        return ofertaRepository.findTop10ByOrderByLikesDesc();
+    }
+
+    public List<Oferta> findOfertasRecentes() {
+        return ofertaRepository.findTop10ByOrderByDataPostagemDesc();
+    }
+
 
 }
