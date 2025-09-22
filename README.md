@@ -20,18 +20,22 @@ O principal objetivo do **"Desconto Direto"** é fortalecer o comércio local e 
 - Satisfação dos consumidores pela facilidade de encontrar promoções.
 - Fortalecimento da economia local de Pires do Rio.
 
-## Equipe
+## Equipes
+### Frontend
+- Yasmine Oliveira Belmiro 
+### Backend
 - Darcson Lanúcio Ferreira Fernandes
 - João Vitor Farias Soares 
-- Marcos Luigi da Silva Rodrigues 
 - Sabrina Ferreira Pires
+### Mobile
+- Marcos Luigi da Silva Rodrigues 
 - Yasmine Oliveira Belmiro 
 
 ## Ferramentas Utilizadas
 
 <p>
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=java,spring,idea,vscode,git,github,mysql,notion,vite,react,maven" />
+    <img src="https://skillicons.dev/icons?i=git,github,notion,java,spring,idea,postgres,maven,docker" />
   </a>
 </p>
 
