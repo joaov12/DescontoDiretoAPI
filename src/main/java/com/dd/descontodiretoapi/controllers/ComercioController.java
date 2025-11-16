@@ -1,5 +1,6 @@
 package com.dd.descontodiretoapi.controllers;
 
+import com.dd.descontodiretoapi.dto.LoginComercioRequest;
 import com.dd.descontodiretoapi.models.Comercio;
 import com.dd.descontodiretoapi.repositories.ComercioRepository;
 import com.dd.descontodiretoapi.services.ComercioService;
@@ -171,7 +172,6 @@ public class ComercioController {
 
 
         try {
-            // Fazer upload da imagem para o S3
             String fotoUrl = s3Service.uploadFile(
                     file.getOriginalFilename(),
                     file.getInputStream(),
@@ -179,7 +179,6 @@ public class ComercioController {
                     file.getContentType()
             );
 
-            // Salvar o link da imagem no banco
             comercio.setFotoUrl(fotoUrl);
             comercioRepository.save(comercio);
 
@@ -188,5 +187,34 @@ public class ComercioController {
             throw new RuntimeException("Erro ao fazer upload da foto: " + e.getMessage());
         }
     }
+
+    @Operation(
+            summary = "Login do comércio",
+            description = "Realiza o login de um comércio usando email e senha",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Login realizado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Comercio.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Credenciais inválidas",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Erro interno",
+                            content = @Content(mediaType = "application/json")
+                    )
+            }
+    )
+    @PostMapping("/login")
+    public ResponseEntity<Comercio> login(@RequestBody LoginComercioRequest request) {
+        Comercio comercio = comercioService.login(request.getEmail(), request.getSenha());
+
+        return ResponseEntity.status(HttpStatus.OK).body(comercio);
+    }
+
 
 }
