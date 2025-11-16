@@ -81,4 +81,16 @@ public class ClienteService {
         }
     }
 
+    public Cliente login(String email, String senha) {
+        Cliente cliente = clienteRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Email não encontrado"));
+
+        if (!cliente.getSenha().equals(senha)) {
+            throw new RuntimeException("Senha inválida");
+        }
+
+        return cliente;
+    }
+
+
 }

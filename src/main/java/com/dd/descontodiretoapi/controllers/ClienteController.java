@@ -1,5 +1,6 @@
 package com.dd.descontodiretoapi.controllers;
 
+import com.dd.descontodiretoapi.dto.LoginRequest;
 import com.dd.descontodiretoapi.models.Cliente;
 import com.dd.descontodiretoapi.services.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -204,5 +205,34 @@ public class ClienteController {
     public ResponseEntity<Cliente> removeOfertaFromFavoritos(@PathVariable Long clienteId, @PathVariable Long ofertaId) {
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.removeOfertaFromFavoritos(clienteId, ofertaId));
     }
+
+    @Operation(
+            summary = "Login do cliente",
+            description = "Realiza o login do cliente com email e senha",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Login realizado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Credenciais inválidas",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Erro interno",
+                            content = @Content(mediaType = "application/json")
+                    )
+            }
+    )
+    @PostMapping("/login")
+    public ResponseEntity<Cliente> login(@RequestBody LoginRequest loginRequest) {
+        Cliente cliente = clienteService.login(loginRequest.getEmail(), loginRequest.getSenha());
+
+        return ResponseEntity.status(HttpStatus.OK).body(cliente);
+    }
+
 
 }
