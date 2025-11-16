@@ -1,6 +1,6 @@
 package com.dd.descontodiretoapi.dto;
 
-public class LoginRequest {
+public class LoginClienteRequest {
     private String email;
     private String senha;
 
@@ -20,3 +20,4 @@ public class LoginRequest {
         this.senha = senha;
     }
 }
+
