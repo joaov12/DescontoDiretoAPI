@@ -64,7 +64,7 @@ public class PanfletoController {
 
         try {
             // Fazer upload da imagem para o S3
-            String fotoUrl = s3Service.uploadFile(
+            String fotoUrl = s3Service.uploadFotoPanfleto(
                     file.getOriginalFilename(),
                     file.getInputStream(),
                     file.getSize(),

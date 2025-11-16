@@ -13,7 +13,7 @@ public class S3Service {
     @Autowired
     private AmazonS3 s3Client;
 
-    private String bucketName = System.getenv("BUCKET_NAME");
+    private String bucketName = "desconto-direto";
 
 
     public String uploadFile(String fileName, InputStream fileStream, long fileSize, String contentType) {
