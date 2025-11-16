@@ -1,6 +1,6 @@
 package com.dd.descontodiretoapi.controllers;
 
-import com.dd.descontodiretoapi.dto.LoginRequest;
+import com.dd.descontodiretoapi.dto.LoginClienteRequest;
 import com.dd.descontodiretoapi.models.Cliente;
 import com.dd.descontodiretoapi.services.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -228,7 +228,7 @@ public class ClienteController {
             }
     )
     @PostMapping("/login")
-    public ResponseEntity<Cliente> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Cliente> login(@RequestBody LoginClienteRequest loginRequest) {
         Cliente cliente = clienteService.login(loginRequest.getEmail(), loginRequest.getSenha());
 
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
