@@ -49,4 +49,16 @@ public class ComercioService {
     public void deleteComercio(Long id) {
         comercioRepository.deleteById(id);
     }
+
+    public Comercio login(String email, String senha) {
+        Comercio comercio = comercioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Email não encontrado"));
+
+        if (!comercio.getSenha().equals(senha)) {
+            throw new RuntimeException("Senha inválida");
+        }
+
+        return comercio;
+    }
+
 }
