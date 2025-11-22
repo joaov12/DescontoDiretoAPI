@@ -32,10 +32,10 @@ public class Comercio {
     @Column(name = "foto_url")
     private String fotoUrl;
 
-    @OneToMany(mappedBy = "comercio")
+    @OneToMany(mappedBy = "comercio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oferta> ofertas;
 
-    @OneToMany(mappedBy = "comercio")
+    @OneToMany(mappedBy = "comercio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Panfleto> panfletos;
 
 
